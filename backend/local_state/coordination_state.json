@@ -1,0 +1,364 @@
+{
+  "states": {
+    "demo_portfolio_1:7651aeb3-7a77-408e-bc42-d8d24f501061": {
+      "portfolio_id": "demo_portfolio_1",
+      "execution_id": "7651aeb3-7a77-408e-bc42-d8d24f501061",
+      "user_input": "Find me the best yield opportunity for my USDC",
+      "wallet_address": "0xYourDefaultWalletAddress",
+      "chain_id": 1,
+      "balances": {
+        "USDC": 10000,
+        "ETH": 2
+      },
+      "positions": {
+        "Aave": {
+          "USDC": 10000,
+          "apy": 0.05
+        }
+      },
+      "orchestrator_decision": null,
+      "defi_proposal": null,
+      "risk_assessment": null,
+      "prediction_forecast": null,
+      "productivity_actions": null,
+      "qa_results": null,
+      "executed_transactions": [],
+      "pending_transactions": [],
+      "agent_reasoning": [],
+      "next_agent": "orchestrator",
+      "iteration_count": 0,
+      "error_messages": [],
+      "created_at": "2025-12-29T19:29:54.121793",
+      "updated_at": "2025-12-29T19:29:54.121793"
+    },
+    "demo_portfolio_1:8d18f894-8a74-4a8c-93a3-f660ad1ef1f3": {
+      "portfolio_id": "demo_portfolio_1",
+      "execution_id": "8d18f894-8a74-4a8c-93a3-f660ad1ef1f3",
+      "user_input": "Find me the best yield opportunity for my USDC",
+      "wallet_address": "0xYourDefaultWalletAddress",
+      "chain_id": 1,
+      "balances": {
+        "USDC": 10000,
+        "ETH": 2
+      },
+      "positions": {
+        "Aave": {
+          "USDC": 10000,
+          "apy": 0.05
+        }
+      },
+      "orchestrator_decision": {
+        "next_agent": "risk_agent",
+        "reasoning": "A new proposal has been presented by the DeFi_Agent, and according to the rules, risk must always be checked before executing any trade. Therefore, the risk_agent should assess the safety of this proposal, even if it's a repeat of a previously rejected one."
+      },
+      "defi_proposal": {
+        "action": "migrate",
+        "source": "Aave",
+        "destination": "Yearn",
+        "asset": "USDC",
+        "amount": 10000,
+        "current_apy": 0.05,
+        "new_apy": 0.12,
+        "apy_gain": 0.06999999999999999,
+        "reasoning": "Found 7.00% APY gain by moving to Yearn"
+      },
+      "risk_assessment": {
+        "protocol": "Yearn",
+        "risk_score": 10.0,
+        "safe": false,
+        "factors": {
+          "protocol_age_impact": -0.4,
+          "tvl_impact": -0.475,
+          "audit_impact": -0.32000000000000006,
+          "hack_history_impact": 2.0
+        },
+        "threshold": 3.0
+      },
+      "prediction_forecast": null,
+      "productivity_actions": null,
+      "qa_results": null,
+      "executed_transactions": [],
+      "pending_transactions": [],
+      "agent_reasoning": [
+        "Orchestrator: The user wants to find the best yield opportunity for USDC. The current USDC is on Aave at 5% APY. The 'defi_agent' is responsible for finding and optimizing yield opportunities, so it's the appropriate agent to search for better options.",
+        "DeFi_Agent: Found 7.00% APY gain by moving to Yearn",
+        "Orchestrator: A DeFi proposal has been made by the defi_agent, proposing to migrate USDC from Aave to Yearn for a higher APY. According to the rules, risk must always be checked before executing any trade. Therefore, the risk_agent should assess the safety of this proposal.",
+        "Risk_Agent: Risk Score: 10.0/10. TOO RISKY \u274c",
+        "Orchestrator: The previous DeFi proposal was rejected due to an unacceptable risk score (10.0/10). We need to find a new, safer yield opportunity for USDC.",
+        "DeFi_Agent: Found 7.00% APY gain by moving to Yearn",
+        "Orchestrator: The DeFi_Agent has presented a new proposal (even if it's the same as a previously rejected one). According to the rules, risk must always be checked before executing any trade. Therefore, the risk_agent should assess the safety of this proposal.",
+        "Risk_Agent: Risk Score: 10.0/10. TOO RISKY \u274c",
+        "Orchestrator: The previous proposal was rejected twice due to high risk. We need to find a new, safer yield opportunity for USDC, which falls under the DeFi_Agent's responsibility.",
+        "DeFi_Agent: Found 7.00% APY gain by moving to Yearn",
+        "Orchestrator: A new proposal has been presented by the DeFi_Agent, and according to the rules, risk must always be checked before executing any trade. Therefore, the risk_agent should assess the safety of this proposal, even if it's a repeat of a previously rejected one.",
+        "Risk_Agent: Risk Score: 10.0/10. TOO RISKY \u274c"
+      ],
+      "next_agent": "orchestrator",
+      "iteration_count": 6,
+      "error_messages": [],
+      "created_at": "2025-12-29T19:30:35.219441",
+      "updated_at": "2025-12-29T19:30:56.985186"
+    }
+  },
+  "agent_decisions": [
+    {
+      "portfolio_id": "demo_portfolio_1",
+      "execution_id": "8d18f894-8a74-4a8c-93a3-f660ad1ef1f3",
+      "agent_name": "Orchestrator",
+      "decision_data": {
+        "next_agent": "defi_agent",
+        "reasoning": "The user wants to find the best yield opportunity for USDC. The current USDC is on Aave at 5% APY. The 'defi_agent' is responsible for finding and optimizing yield opportunities, so it's the appropriate agent to search for better options."
+      },
+      "reasoning": "The user wants to find the best yield opportunity for USDC. The current USDC is on Aave at 5% APY. The 'defi_agent' is responsible for finding and optimizing yield opportunities, so it's the appropriate agent to search for better options.",
+      "timestamp": "2025-12-29T19:30:37.799004"
+    },
+    {
+      "portfolio_id": "demo_portfolio_1",
+      "execution_id": "8d18f894-8a74-4a8c-93a3-f660ad1ef1f3",
+      "agent_name": "DeFi_Agent",
+      "decision_data": {
+        "action": "migrate",
+        "source": "Aave",
+        "destination": "Yearn",
+        "asset": "USDC",
+        "amount": 10000,
+        "current_apy": 0.05,
+        "new_apy": 0.12,
+        "apy_gain": 0.06999999999999999,
+        "reasoning": "Found 7.00% APY gain by moving to Yearn"
+      },
+      "reasoning": "Found 7.00% APY gain by moving to Yearn",
+      "timestamp": "2025-12-29T19:30:37.801155"
+    },
+    {
+      "portfolio_id": "demo_portfolio_1",
+      "execution_id": "8d18f894-8a74-4a8c-93a3-f660ad1ef1f3",
+      "agent_name": "Orchestrator",
+      "decision_data": {
+        "next_agent": "risk_agent",
+        "reasoning": "A DeFi proposal has been made by the defi_agent, proposing to migrate USDC from Aave to Yearn for a higher APY. According to the rules, risk must always be checked before executing any trade. Therefore, the risk_agent should assess the safety of this proposal."
+      },
+      "reasoning": "A DeFi proposal has been made by the defi_agent, proposing to migrate USDC from Aave to Yearn for a higher APY. According to the rules, risk must always be checked before executing any trade. Therefore, the risk_agent should assess the safety of this proposal.",
+      "timestamp": "2025-12-29T19:30:39.937658"
+    },
+    {
+      "portfolio_id": "demo_portfolio_1",
+      "execution_id": "8d18f894-8a74-4a8c-93a3-f660ad1ef1f3",
+      "agent_name": "Orchestrator",
+      "decision_data": {
+        "next_agent": "defi_agent",
+        "reasoning": "The previous DeFi proposal was rejected due to an unacceptable risk score (10.0/10). We need to find a new, safer yield opportunity for USDC."
+      },
+      "reasoning": "The previous DeFi proposal was rejected due to an unacceptable risk score (10.0/10). We need to find a new, safer yield opportunity for USDC.",
+      "timestamp": "2025-12-29T19:30:42.569853"
+    },
+    {
+      "portfolio_id": "demo_portfolio_1",
+      "execution_id": "8d18f894-8a74-4a8c-93a3-f660ad1ef1f3",
+      "agent_name": "DeFi_Agent",
+      "decision_data": {
+        "action": "migrate",
+        "source": "Aave",
+        "destination": "Yearn",
+        "asset": "USDC",
+        "amount": 10000,
+        "current_apy": 0.05,
+        "new_apy": 0.12,
+        "apy_gain": 0.06999999999999999,
+        "reasoning": "Found 7.00% APY gain by moving to Yearn"
+      },
+      "reasoning": "Found 7.00% APY gain by moving to Yearn",
+      "timestamp": "2025-12-29T19:30:42.578182"
+    },
+    {
+      "portfolio_id": "demo_portfolio_1",
+      "execution_id": "8d18f894-8a74-4a8c-93a3-f660ad1ef1f3",
+      "agent_name": "Orchestrator",
+      "decision_data": {
+        "next_agent": "risk_agent",
+        "reasoning": "The DeFi_Agent has presented a new proposal (even if it's the same as a previously rejected one). According to the rules, risk must always be checked before executing any trade. Therefore, the risk_agent should assess the safety of this proposal."
+      },
+      "reasoning": "The DeFi_Agent has presented a new proposal (even if it's the same as a previously rejected one). According to the rules, risk must always be checked before executing any trade. Therefore, the risk_agent should assess the safety of this proposal.",
+      "timestamp": "2025-12-29T19:30:49.120341"
+    },
+    {
+      "portfolio_id": "demo_portfolio_1",
+      "execution_id": "8d18f894-8a74-4a8c-93a3-f660ad1ef1f3",
+      "agent_name": "Orchestrator",
+      "decision_data": {
+        "next_agent": "defi_agent",
+        "reasoning": "The previous proposal was rejected twice due to high risk. We need to find a new, safer yield opportunity for USDC, which falls under the DeFi_Agent's responsibility."
+      },
+      "reasoning": "The previous proposal was rejected twice due to high risk. We need to find a new, safer yield opportunity for USDC, which falls under the DeFi_Agent's responsibility.",
+      "timestamp": "2025-12-29T19:30:52.160084"
+    },
+    {
+      "portfolio_id": "demo_portfolio_1",
+      "execution_id": "8d18f894-8a74-4a8c-93a3-f660ad1ef1f3",
+      "agent_name": "DeFi_Agent",
+      "decision_data": {
+        "action": "migrate",
+        "source": "Aave",
+        "destination": "Yearn",
+        "asset": "USDC",
+        "amount": 10000,
+        "current_apy": 0.05,
+        "new_apy": 0.12,
+        "apy_gain": 0.06999999999999999,
+        "reasoning": "Found 7.00% APY gain by moving to Yearn"
+      },
+      "reasoning": "Found 7.00% APY gain by moving to Yearn",
+      "timestamp": "2025-12-29T19:30:52.165249"
+    },
+    {
+      "portfolio_id": "demo_portfolio_1",
+      "execution_id": "8d18f894-8a74-4a8c-93a3-f660ad1ef1f3",
+      "agent_name": "Orchestrator",
+      "decision_data": {
+        "next_agent": "risk_agent",
+        "reasoning": "A new proposal has been presented by the DeFi_Agent, and according to the rules, risk must always be checked before executing any trade. Therefore, the risk_agent should assess the safety of this proposal, even if it's a repeat of a previously rejected one."
+      },
+      "reasoning": "A new proposal has been presented by the DeFi_Agent, and according to the rules, risk must always be checked before executing any trade. Therefore, the risk_agent should assess the safety of this proposal, even if it's a repeat of a previously rejected one.",
+      "timestamp": "2025-12-29T19:30:56.979914"
+    }
+  ],
+  "agent_reasoning": [
+    {
+      "portfolio_id": "demo_portfolio_1",
+      "execution_id": "8d18f894-8a74-4a8c-93a3-f660ad1ef1f3",
+      "agent_name": "Orchestrator",
+      "step_number": 0,
+      "reasoning_text": "The user wants to find the best yield opportunity for USDC. The current USDC is on Aave at 5% APY. The 'defi_agent' is responsible for finding and optimizing yield opportunities, so it's the appropriate agent to search for better options.",
+      "timestamp": "2025-12-29T19:30:37.787939"
+    },
+    {
+      "portfolio_id": "demo_portfolio_1",
+      "execution_id": "8d18f894-8a74-4a8c-93a3-f660ad1ef1f3",
+      "agent_name": "DeFi_Agent",
+      "step_number": 1,
+      "reasoning_text": "Found 7.00% APY gain by moving to Yearn",
+      "timestamp": "2025-12-29T19:30:37.801155"
+    },
+    {
+      "portfolio_id": "demo_portfolio_1",
+      "execution_id": "8d18f894-8a74-4a8c-93a3-f660ad1ef1f3",
+      "agent_name": "Orchestrator",
+      "step_number": 1,
+      "reasoning_text": "A DeFi proposal has been made by the defi_agent, proposing to migrate USDC from Aave to Yearn for a higher APY. According to the rules, risk must always be checked before executing any trade. Therefore, the risk_agent should assess the safety of this proposal.",
+      "timestamp": "2025-12-29T19:30:39.937658"
+    },
+    {
+      "portfolio_id": "demo_portfolio_1",
+      "execution_id": "8d18f894-8a74-4a8c-93a3-f660ad1ef1f3",
+      "agent_name": "Risk_Agent",
+      "step_number": 2,
+      "reasoning_text": "Risk Score: 10.0/10. TOO RISKY \u274c",
+      "timestamp": "2025-12-29T19:30:39.950548"
+    },
+    {
+      "portfolio_id": "demo_portfolio_1",
+      "execution_id": "8d18f894-8a74-4a8c-93a3-f660ad1ef1f3",
+      "agent_name": "Orchestrator",
+      "step_number": 2,
+      "reasoning_text": "The previous DeFi proposal was rejected due to an unacceptable risk score (10.0/10). We need to find a new, safer yield opportunity for USDC.",
+      "timestamp": "2025-12-29T19:30:42.561529"
+    },
+    {
+      "portfolio_id": "demo_portfolio_1",
+      "execution_id": "8d18f894-8a74-4a8c-93a3-f660ad1ef1f3",
+      "agent_name": "DeFi_Agent",
+      "step_number": 3,
+      "reasoning_text": "Found 7.00% APY gain by moving to Yearn",
+      "timestamp": "2025-12-29T19:30:42.576859"
+    },
+    {
+      "portfolio_id": "demo_portfolio_1",
+      "execution_id": "8d18f894-8a74-4a8c-93a3-f660ad1ef1f3",
+      "agent_name": "Orchestrator",
+      "step_number": 3,
+      "reasoning_text": "The DeFi_Agent has presented a new proposal (even if it's the same as a previously rejected one). According to the rules, risk must always be checked before executing any trade. Therefore, the risk_agent should assess the safety of this proposal.",
+      "timestamp": "2025-12-29T19:30:49.119304"
+    },
+    {
+      "portfolio_id": "demo_portfolio_1",
+      "execution_id": "8d18f894-8a74-4a8c-93a3-f660ad1ef1f3",
+      "agent_name": "Risk_Agent",
+      "step_number": 4,
+      "reasoning_text": "Risk Score: 10.0/10. TOO RISKY \u274c",
+      "timestamp": "2025-12-29T19:30:49.122411"
+    },
+    {
+      "portfolio_id": "demo_portfolio_1",
+      "execution_id": "8d18f894-8a74-4a8c-93a3-f660ad1ef1f3",
+      "agent_name": "Orchestrator",
+      "step_number": 4,
+      "reasoning_text": "The previous proposal was rejected twice due to high risk. We need to find a new, safer yield opportunity for USDC, which falls under the DeFi_Agent's responsibility.",
+      "timestamp": "2025-12-29T19:30:52.159052"
+    },
+    {
+      "portfolio_id": "demo_portfolio_1",
+      "execution_id": "8d18f894-8a74-4a8c-93a3-f660ad1ef1f3",
+      "agent_name": "DeFi_Agent",
+      "step_number": 5,
+      "reasoning_text": "Found 7.00% APY gain by moving to Yearn",
+      "timestamp": "2025-12-29T19:30:52.163712"
+    },
+    {
+      "portfolio_id": "demo_portfolio_1",
+      "execution_id": "8d18f894-8a74-4a8c-93a3-f660ad1ef1f3",
+      "agent_name": "Orchestrator",
+      "step_number": 5,
+      "reasoning_text": "A new proposal has been presented by the DeFi_Agent, and according to the rules, risk must always be checked before executing any trade. Therefore, the risk_agent should assess the safety of this proposal, even if it's a repeat of a previously rejected one.",
+      "timestamp": "2025-12-29T19:30:56.978843"
+    },
+    {
+      "portfolio_id": "demo_portfolio_1",
+      "execution_id": "8d18f894-8a74-4a8c-93a3-f660ad1ef1f3",
+      "agent_name": "Risk_Agent",
+      "step_number": 6,
+      "reasoning_text": "Risk Score: 10.0/10. TOO RISKY \u274c",
+      "timestamp": "2025-12-29T19:30:56.982569"
+    }
+  ],
+  "risk_assessments": [
+    {
+      "portfolio_id": "demo_portfolio_1",
+      "asset_or_protocol": "Yearn",
+      "risk_score": 10.0,
+      "risk_factors": {
+        "protocol_age_impact": -0.4,
+        "tvl_impact": -0.475,
+        "audit_impact": -0.32000000000000006,
+        "hack_history_impact": 2.0
+      },
+      "safe": false,
+      "assessment_date": "2025-12-29T19:30:39.952317"
+    },
+    {
+      "portfolio_id": "demo_portfolio_1",
+      "asset_or_protocol": "Yearn",
+      "risk_score": 10.0,
+      "risk_factors": {
+        "protocol_age_impact": -0.4,
+        "tvl_impact": -0.475,
+        "audit_impact": -0.32000000000000006,
+        "hack_history_impact": 2.0
+      },
+      "safe": false,
+      "assessment_date": "2025-12-29T19:30:49.123959"
+    },
+    {
+      "portfolio_id": "demo_portfolio_1",
+      "asset_or_protocol": "Yearn",
+      "risk_score": 10.0,
+      "risk_factors": {
+        "protocol_age_impact": -0.4,
+        "tvl_impact": -0.475,
+        "audit_impact": -0.32000000000000006,
+        "hack_history_impact": 2.0
+      },
+      "safe": false,
+      "assessment_date": "2025-12-29T19:30:56.983099"
+    }
+  ]
+}

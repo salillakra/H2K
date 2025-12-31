@@ -43,6 +43,7 @@ def build_workflow(coord_layer: CoordinationLayer):
             "prediction_agent": "prediction_agent",
             "productivity_agent": "productivity_agent",
             "qa_agent": "qa_agent",
+            "EXECUTE_TRADE": "orchestrator",  # Route back to orchestrator after execution
             "END": END
         }
     )

@@ -11,7 +11,7 @@ class PredictionAgent(BaseAgent):
         super().__init__("Prediction_Agent", coord_layer)
 
     async def execute(self, state: AgentState) -> AgentState:
-        print(f"\n🔮 PREDICTION AGENT - Forecasting...")
+        print(f"\nPREDICTION AGENT - Forecasting...")
 
         # Mock forecast (replace with real model later)
         forecast = {

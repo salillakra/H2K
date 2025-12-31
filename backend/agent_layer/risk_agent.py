@@ -1,6 +1,7 @@
 from agent_layer.base import BaseAgent
 from coordination_layer.state import AgentState
 from models.risk_ebm import RiskModel
+from tools.web3_tools import sign_intent
 from config.settings import settings
 
 class RiskAgent(BaseAgent):
@@ -13,7 +14,7 @@ class RiskAgent(BaseAgent):
         self.risk_model = RiskModel()
 
     async def execute(self, state: AgentState) -> AgentState:
-        print(f"\n🛡️ RISK AGENT - Assessing safety...")
+        print(f"\n RISK AGENT - Assessing safety...")
 
         proposal = state.get("defi_proposal")
 
@@ -40,10 +41,22 @@ class RiskAgent(BaseAgent):
         }
 
         reasoning = f"Risk Score: {risk_score:.1f}/10. "
-        reasoning += "SAFE ✅" if is_safe else "TOO RISKY ❌"
+        reasoning += "SAFE " if is_safe else "TOO RISKY "
 
         print(f"Assessment: {reasoning}")
         print(f"Factors: {risk_factors}")
+
+        # Sign the risk assessment
+        intent_data = f"Risk Assessment: {protocol} scored {risk_score:.1f}/10. {'APPROVED' if is_safe else 'REJECTED'}. Factors: {', '.join(risk_factors)}"
+        signature_result = sign_intent("risk_agent", intent_data)
+
+        if "error" not in signature_result:
+            assessment["signature"] = signature_result["signature"]
+            assessment["intent"] = intent_data
+            assessment["signed_by"] = signature_result["signer_address"]
+            print(f"✅ Risk assessment signed by Risk Agent: {signature_result['signer_address'][:10]}...")
+        else:
+            print(f"❌ Failed to sign risk assessment: {signature_result['error']}")
 
         # Log to coordination layer
         self.log_reasoning(state, reasoning)
@@ -63,4 +76,4 @@ class RiskAgent(BaseAgent):
         # Write to coordination layer
         self.coord.write_state(state)
 
-        return
+        return state

@@ -10,7 +10,7 @@ class ProductivityAgent(BaseAgent):
         super().__init__("Productivity_Agent", coord_layer)
 
     async def execute(self, state: AgentState) -> AgentState:
-        print(f"\n📧 PRODUCTIVITY AGENT - Notifying user...")
+        print(f"\nPRODUCTIVITY AGENT - Notifying user...")
 
         actions = []
 

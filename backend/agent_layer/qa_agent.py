@@ -10,7 +10,7 @@ class QAAgent(BaseAgent):
         super().__init__("QA_Agent", coord_layer)
 
     async def execute(self, state: AgentState) -> AgentState:
-        print(f"\n✅ QA AGENT - Final validation...")
+        print(f"\nQA AGENT - Final validation...")
 
         checks = {
             "has_proposal": state.get("defi_proposal") is not None,
@@ -21,7 +21,7 @@ class QAAgent(BaseAgent):
 
         all_passed = all(checks.values())
 
-        print(f"Validation: {'PASSED ✅' if all_passed else 'FAILED ❌'}")
+        print(f"Validation: {'PASSED ' if all_passed else 'FAILED ❌'}")
         print(f"Checks: {checks}")
 
         self.log_reasoning(

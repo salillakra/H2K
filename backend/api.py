@@ -5,6 +5,7 @@ from typing import Dict, Any, Optional
 from fastapi import FastAPI, HTTPException, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from contextlib import asynccontextmanager
 from config.settings import settings
 from coordination_layer.layer import CoordinationLayer
 from coordination_layer.state import AgentState
@@ -33,19 +34,9 @@ class ExecutionStatus(BaseModel):
     error_messages: list[str]
 
 # Global variables for workflow management
-app = FastAPI(title="H2K DeFi AI API", version="1.0.0")
 coord_layer = None
 workflow_app = None
 active_executions = {}  # Track running executions
-
-# Add CORS middleware
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],  # Frontend URLs
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 def initialize_system():
     """Initialize the coordination layer and workflow on startup"""
@@ -63,9 +54,24 @@ def initialize_system():
     workflow_app = build_workflow(coord_layer)
     print("✅ System initialized successfully")
 
-@app.on_event("startup")
-async def startup_event():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup
     initialize_system()
+    yield
+    # Shutdown
+    # Add any cleanup code here if needed
+
+app = FastAPI(title="H2K DeFi AI API", version="1.0.0", lifespan=lifespan)
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  
+    allow_credentials=True,
+    allow_methods=["*"],  
+    allow_headers=["*"],  
+)
 
 async def process_chat_request(chat_request: ChatRequest) -> Dict[str, Any]:
     """Process a chat request and return execution details"""
@@ -215,4 +221,4 @@ async def health_check():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run("api:app", host="0.0.0.0", port=8001)

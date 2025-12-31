@@ -22,6 +22,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import { useWallet } from "@/components/wallet-context";
 
 interface Message {
   id: string;
@@ -53,6 +54,9 @@ export default function ChatInterface() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const statusIntervalRef = useRef<NodeJS.Timeout>();
 
+  // Use real wallet data from context
+  const { account: walletAddress, balance: walletBalance } = useWallet();
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -67,7 +71,7 @@ export default function ChatInterface() {
       statusIntervalRef.current = setInterval(async () => {
         try {
           const response = await fetch(
-            `http://localhost:8000/api/executions/${activeExecution.execution_id}`
+            `http://localhost:8001/api/executions/${activeExecution.execution_id}`
           );
           if (response.ok) {
             const status: ExecutionStatus = await response.json();
@@ -198,15 +202,15 @@ export default function ChatInterface() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8000/api/chat", {
+      const response = await fetch("http://localhost:8001/api/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           message: inputMessage,
-          wallet_address: "0xDemoWallet123", // Default demo wallet
-          user_id: "demo_user",
+          wallet_address: walletAddress || "0xDemoWallet123",
+          user_id: walletAddress || "demo_user",
         }),
       });
 
@@ -222,7 +226,7 @@ export default function ChatInterface() {
         {
           id: `system-${Date.now()}`,
           type: "system",
-          content: `🤖 Starting AI agent execution... (ID: ${result.execution_id})`,
+          content: ` Starting AI agent execution... (ID: ${result.execution_id})`,
           timestamp: new Date(),
           execution_id: result.execution_id,
         },
@@ -243,7 +247,7 @@ export default function ChatInterface() {
           id: `error-${Date.now()}`,
           type: "system",
           content:
-            "❌ Failed to connect to AI backend. Please make sure the backend server is running.",
+            " Failed to connect to AI backend. Please make sure the backend server is running.",
           timestamp: new Date(),
         },
       ]);
@@ -310,7 +314,7 @@ export default function ChatInterface() {
             {messages.length === 0 && (
               <div className="text-center text-gray-400 py-8">
                 <Bot className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                <p className="text-lg mb-2">Welcome to H2K DeFi AI</p>
+                <p className="text-lg mb-2">Welcome to Spark DeFi AI</p>
                 <p className="text-sm">
                   Ask me anything about DeFi optimization, yield farming, or
                   risk assessment!

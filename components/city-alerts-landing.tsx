@@ -7,7 +7,6 @@ import {
   Shield,
   TrendingUp,
   Users,
-  Wallet,
   BarChart3,
   Activity,
   ArrowRight,
@@ -23,6 +22,7 @@ import {
   Target,
   Sparkles,
   MessageSquare,
+  Wallet,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -33,6 +33,86 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useWallet } from "./wallet-context";
+
+function WalletConnectButton() {
+  const {
+    account,
+    balance,
+    isConnecting,
+    error,
+    isCorrectNetwork,
+    isMetaMaskInstalled,
+    connectWallet,
+    switchToBaseSepolia,
+  } = useWallet();
+
+  if (!isMetaMaskInstalled) {
+    return (
+      <Button
+        size="lg"
+        className="bg-red-600 hover:bg-red-700 text-lg px-8 py-6"
+        onClick={() => window.open("https://metamask.io/download/", "_blank")}
+      >
+        Install MetaMask
+        <Wallet className="w-5 h-5 ml-2" />
+      </Button>
+    );
+  }
+
+  if (account) {
+    return (
+      <div className="flex items-center gap-2">
+        {!isCorrectNetwork && (
+          <Button
+            size="sm"
+            variant="outline"
+            className="border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black"
+            onClick={switchToBaseSepolia}
+          >
+            Switch to Base Sepolia
+            <AlertTriangle className="w-4 h-4 ml-1" />
+          </Button>
+        )}
+
+        <div className="flex items-center gap-2 bg-slate-800 rounded-lg px-3 py-2">
+          <div className="flex flex-col">
+            <div className="flex items-center gap-2">
+              <CheckCircle className="w-4 h-4 text-green-500" />
+              <span className="text-sm text-white">
+                {account.slice(0, 6)}...{account.slice(-4)}
+              </span>
+            </div>
+            {isCorrectNetwork && balance && (
+              <div className="text-xs text-gray-400">{balance} ETH</div>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex flex-col items-center gap-2">
+      <Button
+        size="lg"
+        className="bg-linear-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-lg px-8 py-6"
+        onClick={connectWallet}
+        disabled={isConnecting}
+      >
+        {isConnecting ? "Connecting..." : "Connect Wallet"}
+        <Wallet className="w-5 h-5 ml-2" />
+      </Button>
+
+      {error && (
+        <div className="text-red-400 text-sm flex items-center gap-1">
+          <AlertTriangle className="w-4 h-4" />
+          {error}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function DeFiAILanding({
   onLaunchChat,
@@ -458,13 +538,7 @@ export default function DeFiAILanding({
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              size="lg"
-              className="bg-linear-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-lg px-8 py-6"
-            >
-              Connect Wallet
-              <Wallet className="w-5 h-5 ml-2" />
-            </Button>
+            <WalletConnectButton />
             <Button
               size="lg"
               variant="outline"
@@ -503,7 +577,7 @@ export default function DeFiAILanding({
               <div className="w-8 h-8 bg-linear-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
                 <Brain className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold text-white">H2K AI</span>
+              <span className="text-xl font-bold text-white">Spark AI</span>
             </div>
 
             <div className="flex space-x-6 text-sm text-gray-400">
@@ -523,7 +597,7 @@ export default function DeFiAILanding({
           </div>
 
           <div className="mt-8 pt-8 border-t border-slate-800 text-center text-gray-400 text-sm">
-            © 2025 H2K AI. Built for the future of DeFi automation.
+            © 2025 Spark AI. Built for the future of DeFi automation.
           </div>
         </div>
       </footer>

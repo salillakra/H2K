@@ -24,6 +24,7 @@ import {
   useReasoningSubscription,
   useTransactions,
 } from "@/lib/supabase/hooks";
+import { useWallet } from "@/components/wallet-context";
 
 export default function Dashboard({
   onBackToChat,
@@ -34,9 +35,11 @@ export default function Dashboard({
     null
   );
 
-  // Use demo wallet for now
-  const walletAddress = "0xDemoWallet123";
-  const { portfolio, loading: portfolioLoading } = usePortfolio(walletAddress);
+  // Use real wallet data from context
+  const { account: walletAddress, balance: walletBalance } = useWallet();
+  const { portfolio, loading: portfolioLoading } = usePortfolio(
+    walletAddress || "0xDemoWallet123"
+  );
   const { executions, loading: executionsLoading } = useExecutions();
   const { balances, loading: balancesLoading } = useBalances(portfolio?.id);
   const { reasoning, loading: reasoningLoading } =

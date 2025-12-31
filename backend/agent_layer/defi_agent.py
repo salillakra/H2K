@@ -1,7 +1,10 @@
 from agent_layer.base import BaseAgent
 from coordination_layer.state import AgentState
 from tools.defi_tools import get_protocol_apy, get_all_opportunities
+from tools.web3_tools import sign_intent
 from config.settings import settings
+
+
 
 class DeFiAgent(BaseAgent):
     '''
@@ -13,7 +16,7 @@ class DeFiAgent(BaseAgent):
         super().__init__("DeFi_Agent", coord_layer)
 
     async def execute(self, state: AgentState) -> AgentState:
-        print(f"\n💰 DEFI AGENT - Analyzing opportunities...")
+        print(f"\n DEFI AGENT - Analyzing opportunities...")
 
         # Read current positions from state
         current_positions = state["positions"]
@@ -32,6 +35,18 @@ class DeFiAgent(BaseAgent):
         reasoning = proposal.get('reasoning', '')
         print(f"Proposal: {proposal.get('action')}")
         print(f"Reasoning: {reasoning}")
+
+        # Sign the proposal with cryptographic proof
+        intent_data = f"DeFi Proposal: {proposal.get('action')} {proposal.get('amount')} {proposal.get('asset')} from {proposal.get('source')} to {proposal.get('destination')}. APY gain: {proposal.get('apy_gain', 0):.2%}"
+        signature_result = sign_intent("defi_agent", intent_data)
+
+        if "error" not in signature_result:
+            proposal["signature"] = signature_result["signature"]
+            proposal["intent"] = intent_data
+            proposal["signed_by"] = signature_result["signer_address"]
+            print(f"✅ Proposal signed by DeFi Agent: {signature_result['signer_address'][:10]}...")
+        else:
+            print(f"❌ Failed to sign proposal: {signature_result['error']}")
 
         # Log to coordination layer
         self.log_reasoning(state, reasoning)
@@ -73,16 +88,19 @@ class DeFiAgent(BaseAgent):
         apy_diff = best['apy'] - current_apy
 
         if apy_diff > settings.MIN_APY_DIFF:
+            
+            test_amount = min(balances.get("USDC", 0), 100)  
+            
             return {
                 "action": "migrate",
                 "source": current_protocol or "wallet",
                 "destination": best['protocol'],
                 "asset": "USDC",
-                "amount": balances.get("USDC", 0),
+                "amount": test_amount,
                 "current_apy": current_apy,
                 "new_apy": best['apy'],
                 "apy_gain": apy_diff,
-                "reasoning": f"Found {apy_diff:.2%} APY gain by moving to {best['protocol']}"
+                "reasoning": f"Found {apy_diff:.2%} APY gain by moving to {best['protocol']} (test amount: {test_amount} USDC)"
             }
         else:
             return {
